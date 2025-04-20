@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - My Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold">My Shop</a>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="hover:text-gray-600">Home</a>
+                    <a href="mens.html" class="hover:text-gray-600">Men's</a>
+                    <a href="ladies.html" class="hover:text-gray-600">Ladies'</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <div class="text-center mb-6">
+                <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <h1 class="text-2xl font-bold text-gray-800">Order Confirmed!</h1>
+                <p class="text-gray-600 mt-2">Thank you for your purchase. Your order has been successfully placed.</p>
+            </div>
+
+            <div class="border-t border-gray-200 pt-6">
+                <h2 class="text-lg font-semibold mb-4">Order Details</h2>
+                <div id="order-details" class="space-y-4">
+                    <!-- Order details will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-6 mt-6">
+                <h2 class="text-lg font-semibold mb-4">Shipping Information</h2>
+                <div id="shipping-details" class="space-y-2">
+                    <!-- Shipping details will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <a href="index.html" class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get order details from localStorage
+            const orderDetails = JSON.parse(localStorage.getItem('lastOrder'));
+            
+            if (!orderDetails) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Display order details
+            const orderDetailsContainer = document.getElementById('order-details');
+            orderDetailsContainer.innerHTML = `
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-600">Order ID</p>
+                        <p class="font-medium">${orderDetails.orderId}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Payment ID</p>
+                        <p class="font-medium">${orderDetails.paymentId || 'N/A'}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Amount</p>
+                        <p class="font-medium">${orderDetails.currency} ${orderDetails.amount}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Status</p>
+                        <p class="font-medium">${orderDetails.status}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Display shipping details
+            const shippingDetailsContainer = document.getElementById('shipping-details');
+            const shippingInfo = orderDetails.shippingInfo;
+            shippingDetailsContainer.innerHTML = `
+                <p class="font-medium">${shippingInfo.name}</p>
+                <p>${shippingInfo.address}</p>
+                <p>${shippingInfo.city}, ${shippingInfo.state} ${shippingInfo.zip}</p>
+                <p>Email: ${shippingInfo.email}</p>
+                <p>Phone: ${shippingInfo.phone}</p>
+            `;
+            
+            // Clear the order from localStorage after displaying
+            localStorage.removeItem('lastOrder');
+        });
+    </script>
+</body>
+</html> 

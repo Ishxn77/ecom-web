@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - My Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-xl font-bold">My Shop</a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-black">Home</a>
+                    <a href="mens.html" class="text-gray-600 hover:text-black">Men's</a>
+                    <a href="ladies.html" class="text-gray-600 hover:text-black">Ladies'</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="cart.html" class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Checkout</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Shipping Information -->
+            <div class="md:col-span-2">
+                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <h2 class="text-xl font-semibold mb-4">Shipping Information</h2>
+                    <form id="shipping-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" id="first-name" name="first-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" id="last-name" name="last-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <p id="email-error" class="text-red-500 text-sm mt-1 hidden">Invalid input: Please enter a valid email address with @ format</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <p id="phone-error" class="text-red-500 text-sm mt-1 hidden">Invalid input: Please enter a valid 10-digit phone number</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                            <textarea id="address" name="address" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" id="city" name="city" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                <select id="state" name="state" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Select State</option>
+                                    <option value="Delhi">Delhi</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                <input type="text" id="zip" name="zip" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Payment Method -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Payment Method</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <input type="radio" id="razorpay" name="payment-method" value="razorpay" class="h-4 w-4 text-blue-600 focus:ring-blue-500" checked>
+                            <label for="razorpay" class="ml-2 block text-sm font-medium text-gray-700">Pay with Razorpay</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="cod" name="payment-method" value="cod" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <label for="cod" class="ml-2 block text-sm font-medium text-gray-700">Cash on Delivery</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="md:col-span-1">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+                    <div id="order-items" class="mb-4">
+                        <!-- Order items will be dynamically added here -->
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span id="subtotal" class="font-medium">$0.00</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Shipping</span>
+                            <span class="font-medium">$5.00</span>
+                        </div>
+                        <div class="flex justify-between mb-4">
+                            <span class="text-gray-600">Tax</span>
+                            <span id="tax" class="font-medium">$0.00</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="font-semibold">Total</span>
+                                <span id="total" class="font-semibold">$0.00</span>
+                            </div>
+                            <button id="place-order-btn" class="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition duration-300">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cart items from localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Display cart items in order summary
+            const orderItemsContainer = document.getElementById('order-items');
+            let subtotal = 0;
+            
+            cartItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex justify-between mb-2';
+                itemElement.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                orderItemsContainer.appendChild(itemElement);
+                
+                subtotal += item.price * item.quantity;
+            });
+            
+            // Calculate tax (10%)
+            const tax = subtotal * 0.1;
+            
+            // Calculate total with shipping
+            const shipping = 5.00;
+            const total = subtotal + tax + shipping;
+            
+            // Update summary values
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            // Add real-time validation for email and phone
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const emailError = document.getElementById('email-error');
+            const phoneError = document.getElementById('phone-error');
+            
+            // Email validation
+            emailInput.addEventListener('input', function() {
+                const email = this.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email && !emailRegex.test(email)) {
+                    emailError.classList.remove('hidden');
+                    this.classList.add('border-red-500');
+                } else {
+                    emailError.classList.add('hidden');
+                    this.classList.remove('border-red-500');
+                }
+            });
+            
+            // Phone validation
+            phoneInput.addEventListener('input', function() {
+                const phone = this.value.trim();
+                const phoneRegex = /^\d{10}$/;
+                
+                if (phone && !phoneRegex.test(phone)) {
+                    phoneError.classList.remove('hidden');
+                    this.classList.add('border-red-500');
+                } else {
+                    phoneError.classList.add('hidden');
+                    this.classList.remove('border-red-500');
+                }
+            });
+            
+            // Add form validation
+            const shippingForm = document.getElementById('shipping-form');
+            const placeOrderBtn = document.getElementById('place-order-btn');
+            
+            // Validate form before submission
+            placeOrderBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if all required fields are filled
+                const firstName = document.getElementById('first-name').value.trim();
+                const lastName = document.getElementById('last-name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const city = document.getElementById('city').value.trim();
+                const state = document.getElementById('state').value;
+                const zip = document.getElementById('zip').value.trim();
+                
+                if (!firstName || !lastName || !email || !phone || !address || !city || !state || !zip) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Invalid input: Please enter a valid email address with @ format');
+                    return;
+                }
+                
+                // Validate phone number (simple validation)
+                const phoneRegex = /^\d{10}$/;
+                if (!phoneRegex.test(phone)) {
+                    alert('Invalid input: Please enter a valid 10-digit phone number');
+                    return;
+                }
+                
+                // Validate state is Delhi
+                if (state !== 'Delhi') {
+                    alert('Sorry, we currently only deliver to Delhi. Please select Delhi as your state.');
+                    return;
+                }
+                
+                // If all validations pass, proceed with checkout
+                handleCheckout();
+            });
+        });
+    </script>
+</body>
+</html> 
